@@ -5,6 +5,7 @@ import { iProduct } from './product.model';
   selector: 'app-catalog',
   templateUrl: './catalog.component.html',
   styleUrls: ['./catalog.component.css']
+ // styles: ['a {font-weight: bold;}'],
 })
 export class CatalogComponent {
 products: iProduct[];
@@ -187,6 +188,15 @@ constructor() {
   },
 ];
 }
+
+getDiscountedClasses(product: iProduct) {
+  if (product.discount > 0) {
+    return 'strikethrough bold';
+  }
+  return '';
+}
+
+
 
 getImageUrl(product: iProduct): string {
   return 'assets/images/robot-parts/' + product.imageName;
