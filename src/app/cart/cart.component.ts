@@ -9,9 +9,14 @@ import { CartService } from './cart.service';
 })
 export class CartComponent implements OnInit {
   private cart: IProduct[] = [];
-  constructor(private cartService: CartService) { }
+
+  constructor(private cartService: CartService) {}
 
   ngOnInit() {
+    this.loadCart();
+  }
+
+  loadCart() {
     this.cartService.getCart().subscribe({
       next: (cart) => (this.cart = cart),
     });
@@ -23,13 +28,16 @@ export class CartComponent implements OnInit {
 
   get cartTotal() {
     return this.cart.reduce((prev, next) => {
-      let discount = next.discount && next.discount > 0 ? 1 - next.discount : 1;
+      let discount =
+        next.discount && next.discount > 0 ? 1 - next.discount : 1;
       return prev + next.price * discount;
     }, 0);
   }
 
   removeFromCart(product: IProduct) {
-    this.cartService.remove(product);
+    this.cartService.remove(product.id).subscribe({
+      next: () => this.loadCart(),
+    });
   }
 
   getImageUrl(product: IProduct) {
