@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { iProduct } from './product.model';
+import { Component, inject } from '@angular/core';
+import { IProduct } from './product.model';
+import { CartService } from '../cart/cart.service';
 
 @Component({
   selector: 'app-catalog',
@@ -8,9 +9,10 @@ import { iProduct } from './product.model';
 })
 
 export class CatalogComponent {
-products: iProduct[];
+products: IProduct[];
 filter: string = '';
-cart: iProduct[] = [];
+private cartSvc: CartService = inject(CartService);
+
 
 constructor() {
   this.products = [
@@ -190,19 +192,18 @@ constructor() {
 ];
 }
 
-addToCart(product: iProduct) {
-this.cart.push(product);
-console.log(`product ${product.name} added to cart!`);
+addToCart(product: IProduct) {
+  this.cartSvc.add(product);
 }
 
-getDiscountedClasses(product: iProduct) {
+getDiscountedClasses(product: IProduct) {
   if (product.discount > 0) {
     return 'strikethrough bold';
   }
   return '';
 }
 
-getFilteredProducts(): iProduct[] {
+getFilteredProducts(): IProduct[] {
   return this.filter === ''
     ? this.products
     : this.products.filter((product) => product.category === this.filter);
