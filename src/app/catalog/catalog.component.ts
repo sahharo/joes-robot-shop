@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IProduct } from './product.model';
 import { CartService } from '../cart/cart.service';
 import { ProductService } from './product.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-catalog',
@@ -15,7 +16,8 @@ export class CatalogComponent implements OnInit {
 
   constructor(
     private cartSvc: CartService,
-    private productService: ProductService
+    private productService: ProductService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -30,6 +32,7 @@ export class CatalogComponent implements OnInit {
 
   addToCart(product: IProduct) {
     this.cartSvc.add(product);
+    this.router.navigate(['/cart']);
   }
 
   getDiscountedClasses(product: IProduct): string {
