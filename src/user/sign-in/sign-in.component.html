@@ -7,12 +7,18 @@
     <input
       name="email"
       required
+      email
       #email="ngModel"
       [(ngModel)]="credential.email"
       placeholder="Email Address"
-      type="text"
+      type="email"
     />
-    <em class="error" *ngIf="email.invalid && email.touched">Email is required</em>
+    <em class="error" *ngIf="email.errors?.['required'] && email.touched">
+      Email is required
+    </em>
+    <em class="error" *ngIf="email.errors?.['email'] && email.touched">
+      Must be a valid email format
+    </em>
 
     <input
       name="password"
@@ -22,10 +28,16 @@
       placeholder="Password"
       type="password"
     />
-    <em class="error" *ngIf="password.invalid && password.touched">Password is required</em>
+    <em class="error" *ngIf="password.invalid && password.touched"
+      >Password is required</em
+    >
 
     <div class="buttons">
-      <button type="submit" [disabled]="signInForm.form.invalid" class="button cta">
+      <button
+        type="submit"
+        [disabled]="signInForm.form.invalid"
+        class="button cta"
+      >
         Sign In
       </button>
     </div>
