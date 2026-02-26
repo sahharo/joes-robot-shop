@@ -9,6 +9,7 @@ import { IUser, IUserCredentials } from './user.model';
 })
 export class UserService {
   private user: BehaviorSubject<IUser | null>;
+  private apiUrl = 'http://localhost:3000';
 
   constructor(private http: HttpClient) {
     this.user = new BehaviorSubject<IUser | null>(null);
@@ -20,7 +21,7 @@ export class UserService {
 
   signIn(credentials: IUserCredentials): Observable<IUser> {
     return this.http
-      .post<IUser>('/api/sign-in', credentials)
+      .post<IUser>(`${this.apiUrl}/api/sign-in`, credentials)
       .pipe(map((user: IUser) => {
         this.user.next(user);
         return user;
