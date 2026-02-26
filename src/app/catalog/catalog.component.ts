@@ -3,6 +3,7 @@ import { IProduct } from './product.model';
 import { CartService } from '../cart/cart.service';
 import { ProductService } from './product.service';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-catalog',
@@ -17,7 +18,8 @@ export class CatalogComponent implements OnInit {
   constructor(
     private cartSvc: CartService,
     private productService: ProductService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -25,8 +27,11 @@ export class CatalogComponent implements OnInit {
       next: (products) => {
         this.products = products;
       },
-      error: () => {
+        error: () => {
       }
+    });
+    this.route.queryParams.subscribe((params) => {
+      this.filter = params['filter'] || '';
     });
   }
 
