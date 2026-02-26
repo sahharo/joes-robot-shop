@@ -3,44 +3,35 @@ import { IProduct } from '../catalog/product.model';
 import { CartService } from './cart.service';
 
 @Component({
-  selector: 'bot-cart',
+  selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css'],
 })
 export class CartComponent implements OnInit {
-  private cart: IProduct[] = [];
+  cart: IProduct[] = [];
 
   constructor(private cartService: CartService) {}
 
   ngOnInit() {
-    this.loadCart();
+    this.cartService.getCart().subscribe(cart => this.cart = cart);
   }
 
-  loadCart() {
-    this.cartService.getCart().subscribe({
-      next: (cart) => (this.cart = cart),
-    });
-  }
-
-  get cartItems() {
+  get cartItems(): IProduct[] {
     return this.cart;
   }
 
-  get cartTotal() {
+  get cartTotal(): number {
     return this.cart.reduce((prev, next) => {
-      let discount =
-        next.discount && next.discount > 0 ? 1 - next.discount : 1;
+      const discount = next.discount && next.discount > 0 ? 1 - next.discount : 1;
       return prev + next.price * discount;
     }, 0);
   }
 
   removeFromCart(product: IProduct) {
-    this.cartService.remove(product.id).subscribe({
-      next: () => this.loadCart(),
-    });
+    this.cartService.remove(product);
   }
 
-  getImageUrl(product: IProduct) {
+  getImageUrl(product: IProduct): string {
     if (!product) return '';
     return '/assets/images/robot-parts/' + product.imageName;
   }

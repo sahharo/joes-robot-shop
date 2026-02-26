@@ -29,7 +29,7 @@ export class CatalogComponent implements OnInit {
   }
 
   addToCart(product: IProduct) {
-    this.cartSvc.add(product).subscribe();
+    this.cartSvc.add(product);
   }
 
   getDiscountedClasses(product: IProduct): string {
