@@ -10,16 +10,10 @@ const routes: Routes = [
   { path: 'catalog', component: CatalogComponent, title: "Catalog - Joe's Robot Shop" },
   { path: 'cart', component: CartComponent, title: "Cart - Joe's Robot Shop" },
   { path: 'sign-in', component: SignInComponent, title: "Sign In - Joe's Robot Shop" },
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-];
-
-
+{ path: '', redirectTo: '/sign-in', pathMatch: 'full' },];
 
 @NgModule({
-  declarations: [],
-  imports: [
-    RouterModule.forRoot(routes)
-  ],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

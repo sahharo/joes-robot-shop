@@ -1,45 +1,77 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #f5f5f5 0%, #ffffff 40%);
+}
+
 .container {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  padding-top: 50px;
+  box-sizing: border-box;
 }
 
 .form {
   display: flex;
-  padding: 30px 50px 50px 50px;
   flex-direction: column;
-  margin-top: 25px;
+  padding: 40px 50px;
   border: 1px solid #ddd;
   border-radius: 15px;
+  width: 350px;
+  box-shadow: 0px 5px 20px rgba(0,0,0,0.1);
+  background-color: white;
 }
 
 .form input {
-  margin-top: 25px;
+  margin-top: 20px;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
 }
 
 .logo {
-  width: 150px;
-  align-self: center;
-  margin-bottom: 15px;
+  width: 120px;
+  margin-bottom: 30px;
 }
 
 .sign-in {
-  font-size: 30px;
-  align-self: center;
+  font-size: 28px;
   color: #555;
+  text-align: center;
+  margin-bottom: 5px;
 }
 
 .sub-text {
-  font-size: 18px;
-  align-self: center;
-  margin-bottom: 15px;
+  font-size: 16px;
   color: #444;
+  text-align: center;
+  margin-bottom: 25px;
 }
 
 .form .buttons {
-  margin-top: 10px;
-  display: inline-flex;
-  justify-content: flex-end;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.button.cta {
+  padding: 12px 30px;
   font-size: 16px;
+  background-color: #d25ca1;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.button.cta:hover {
+  background-color: #c25596;
 }
 
 input.error {
