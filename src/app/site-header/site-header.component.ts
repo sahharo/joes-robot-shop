@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { IUser } from 'src/user/user.model';
+import { UserService } from 'src/user/user.service';
 
 @Component({
   selector: 'app-site-header',
@@ -6,7 +8,23 @@ import { Component } from '@angular/core';
   styleUrls: ['./site-header.component.css']
 })
 export class SiteHeaderComponent {
+user: IUser | null = null;
+showSignOutMenu: boolean = false;
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
+  ngOnInit (){
+    this.userService.getUser().subscribe({
+      next: (user) => this.user = user
+    })
+  }
+
+  toggleSignOutMenu() {
+    this.showSignOutMenu = !this.showSignOutMenu;
+  }
+
+  signOut() {
+    this.userService.signOut();
+    this.showSignOutMenu = false;
+  }
 }

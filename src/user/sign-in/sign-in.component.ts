@@ -13,19 +13,20 @@ export class SignInComponent {
     email: '',
     password: '',
   };
+  signInError: boolean = false;
 
   constructor(private userService: UserService, private router: Router) {}
 
   signIn() {
-
-    if (!this.credential.email || !this.credential.password) {
-      alert('Preencha email e senha 💖');
-      return;
-    }
+    this.signInError = false;
+    this.credential.email = this.credential.email.trim().toLowerCase();
 
     this.userService.signIn(this.credential).subscribe({
       next: () => this.router.navigate(['/catalog']),
-      error: () => alert('Email ou senha inválidos')
+      error: (err) => {
+        console.log('Erro do login:', err);
+        this.signInError = true;
+      }
     });
   }
 }
